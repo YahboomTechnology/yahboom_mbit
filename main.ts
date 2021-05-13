@@ -1,4 +1,4 @@
-﻿/*
+/*
 Copyright (C): 2010-2019, Shenzhen Yahboom Tech
 modified from liusen
 load dependency
@@ -253,6 +253,32 @@ namespace mbit_传感器类 {
     
             let d = pins.pulseIn(Echo, PulseValue.High, 43200);
             list[i] = Math.floor(d / 40)
+        }
+        list.sort();
+        let length = (list[1] + list[2] + list[3])/3;
+        return  Math.floor(length);
+    }
+   
+    //% blockId=mbit_ultrasonicV2 block="Ultrasonic for V2|Trig %Trig|Echo %Echo"
+    //% color="#87CEEB"
+    //% weight=100
+    //% blockGap=10
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function UltrasonicV2(Trig: DigitalPin, Echo: DigitalPin): number {
+
+        // send pulse
+
+        let list:Array<number> = [0, 0, 0, 0, 0];
+        for (let i = 0; i < 5; i++) {
+            pins.setPull(Trig, PinPullMode.PullNone);
+            pins.digitalWritePin(Trig, 0);
+            control.waitMicros(2);
+            pins.digitalWritePin(Trig, 1);
+            control.waitMicros(15);
+            pins.digitalWritePin(Trig, 0);
+    
+            let d = pins.pulseIn(Echo, PulseValue.High);
+            list[i] = Math.floor(d / 58)
         }
         list.sort();
         let length = (list[1] + list[2] + list[3])/3;
@@ -882,6 +908,31 @@ namespace mbit_小车类 {
 		
 		        let d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 43200);
 		        list[i] = Math.floor(d / 40)
+        }
+        list.sort();
+        let length = (list[1] + list[2] + list[3])/3;
+        return  Math.floor(length);
+    }
+
+	//% blockId=mbit_ultrasonic_carV2 block="ultrasonic for V2 return distance(cm)"
+    //% color="#006400"
+    //% weight=98
+    //% blockGap=10
+    //% name.fieldEditor="gridpicker" name.fieldOptions.columns=4
+    export function Ultrasonic_CarV2(): number {
+
+        // send pulse   
+        let list:Array<number> = [0, 0, 0, 0, 0];
+        for (let i = 0; i < 5; i++) {
+            pins.setPull(DigitalPin.P14, PinPullMode.PullNone);
+		        pins.digitalWritePin(DigitalPin.P14, 0);
+		        control.waitMicros(2);
+		        pins.digitalWritePin(DigitalPin.P14, 1);
+		        control.waitMicros(15);
+		        pins.digitalWritePin(DigitalPin.P14, 0);
+		
+		        let d = pins.pulseIn(DigitalPin.P15, PulseValue.High);
+		        list[i] = Math.floor(d / 58)
         }
         list.sort();
         let length = (list[1] + list[2] + list[3])/3;
