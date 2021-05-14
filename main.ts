@@ -928,7 +928,7 @@ namespace mbit_小车类 {
 		        pins.digitalWritePin(DigitalPin.P14, 0);
 		        control.waitMicros(2);
 		        pins.digitalWritePin(DigitalPin.P14, 1);
-		        control.waitMicros(15);
+		        control.waitMicros(10);
 		        pins.digitalWritePin(DigitalPin.P14, 0);
 		
 		        let d = pins.pulseIn(DigitalPin.P15, PulseValue.High);
