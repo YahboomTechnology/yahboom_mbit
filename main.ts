@@ -268,21 +268,15 @@ namespace mbit_传感器类 {
 
         // send pulse
 
-        let list:Array<number> = [0, 0, 0, 0, 0];
-        for (let i = 0; i < 5; i++) {
             pins.setPull(Trig, PinPullMode.PullNone);
             pins.digitalWritePin(Trig, 0);
-            control.waitMicros(2);
+            control.waitMicros(4);
             pins.digitalWritePin(Trig, 1);
-            control.waitMicros(15);
+            control.waitMicros(10);
             pins.digitalWritePin(Trig, 0);
     
-            let d = pins.pulseIn(Echo, PulseValue.High);
-            list[i] = Math.floor(d / 58)
-        }
-        list.sort();
-        let length = (list[1] + list[2] + list[3])/3;
-        return  Math.floor(length);
+            let d = pins.pulseIn(Echo, PulseValue.High, 500 * 58);
+        return  Math.floor(d / 58)
     }
 }
 
